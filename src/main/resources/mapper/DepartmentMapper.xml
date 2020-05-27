@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    private Long id;
+    private String name;
+    private String director;
+    private String address;
+    private String tel;
+    private Date foundtime;
+-->
+<mapper namespace="com.bs.mstp.mstp01.dao.DepartmentMapper">
+    <select id="findAll"
+            resultType="com.bs.mstp.mstp01.bean.Department">
+        select * from department
+    </select>
+    <select id="findById"
+            resultType="com.bs.mstp.mstp01.bean.Department">
+        select * from department where id =#{id}
+    </select>
+    <select id="query"
+            resultType="com.bs.mstp.mstp01.bean.Department">
+        select * from department
+        <where>
+            <if test="name != null">
+                name like concat('%',#{name},'%')</if>
+            <if test="director != null">
+                AND director like concat('%',#{director},'%')</if>
+            <if test="address != null">
+                AND address like concat('%',#{address},'%')</if>
+            <if test="tel != null">
+                AND tel like concat('%',#{tel},'%')</if>
+            <if test="foundtime != null">
+                AND foundtime like concat('%',#{foundtime},'%')</if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        insert into department values (
+            null, #{name}, #{director}, #{address}, #{tel}, #{foundtime}
+        )
+    </insert>
+    <update id="update">
+        update department
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="director != null">
+                sort = #{director},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="tel != null">
+                tel = #{tel},
+            </if>
+            <if test="foundtime != null">
+                foundtime = #{foundtime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from department where id = #{id}
+    </delete>
+
+
+</mapper>

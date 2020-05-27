@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--        private Long id;-->
+<!--        private Long goods_id;-->
+<!--        private Long detail;-->
+<!--        private Long cleantime;-->
+<mapper namespace="com.bs.mstp.mstp01.dao.CleanMapper">
+    <select id="findAll"
+            resultType="com.bs.mstp.mstp01.bean.Clean">
+        select * from clean
+    </select>
+    <select id="findById"
+            resultType="com.bs.mstp.mstp01.bean.Clean">
+        select * from clean where id = #{id}
+    </select>
+
+
+    <select id="query"
+            resultType="com.bs.mstp.mstp01.bean.Clean">
+        select * from clean
+        <where>
+            <if test="goods_id != null">
+                goods_id like concat('%',#{goods_id},'%')</if>
+            <if test="detail != null">
+                AND detail like concat('%',#{detail},'%')</if>
+            <if test="cleantime != null">
+                AND cleantime like concat('%',#{cleantime},'%')</if>
+        </where>
+    </select>
+
+
+    <insert id="insert">
+        insert into clean values (
+        null, #{goods_id}, #{detail}, #{cleantime}
+        )
+    </insert>
+    <update id="update">
+        update clean
+        <set>
+            <if test="goods_id != null">
+                goods_id = #{goods_id},
+            </if>
+            <if test="detail != null">
+                detail = #{detail},
+            </if>
+            <if test="cleantime != null">
+                cleantime = #{cleantime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from clean where id = #{id}
+    </delete>
+
+
+</mapper>

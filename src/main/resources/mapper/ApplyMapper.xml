@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--        private Long id;-->
+<!--        private Long goods_id;-->
+<!--        private String statu;-->
+<!--        private String num;-->
+<!--        private String applytime;-->
+<mapper namespace="com.bs.mstp.mstp01.dao.ApplyMapper">
+    <select id="findAll"
+            resultType="com.bs.mstp.mstp01.bean.Apply">
+        select * from apply
+    </select>
+    <select id="findById"
+            resultType="com.bs.mstp.mstp01.bean.Apply">
+        select * from apply where id =#{id}
+    </select>
+
+
+    <select id="query"
+            resultType="com.bs.mstp.mstp01.bean.Apply">
+        select * from apply
+        <where>
+            <if test="goods_id != null">
+                goods_id like concat('%',#{goods_id},'%')</if>
+            <if test="statu != null">
+                AND statu like concat('%',#{statu},'%')</if>
+            <if test="num != null">
+                AND num like concat('%',#{num},'%')</if>
+            <if test="applytime != null">
+                AND applytime like concat('%',#{applytime},'%')</if>
+        </where>
+    </select>
+
+    
+    <insert id="insert">
+        insert into apply values (
+        null, #{goods_id}, #{statu}, #{num}, #{applytime}
+        )
+    </insert>
+    <update id="update">
+        update apply
+        <set>
+            <if test="goods_id != null">
+                goods_id = #{goods_id},
+            </if>
+            <if test="statu != null">
+                statu = #{statu},
+            </if>
+            <if test="num != null">
+                num = #{num},
+            </if>
+            <if test="applytime != null">
+                applytime = #{applytime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from apply where id = #{id}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+        private Long id;
+        private String name;
+        private String barcode;
+        private String norm;
+        private String unit;
+        private String num;
+        private String boxnorm;
+        private String brithtime;
+-->
+<mapper namespace="com.bs.mstp.mstp01.dao.GoodsMapper">
+    <select id="findAll"
+            resultType="com.bs.mstp.mstp01.bean.Goods">
+        select * from goods
+    </select>
+    <select id="findById"
+            resultType="com.bs.mstp.mstp01.bean.Goods">
+        select * from goods where id =#{id}
+    </select>
+    <!--    List<Goods> findIdAndName();//查询-查询id和name，供下拉列表使用-->
+    <select id="findIdAndName"
+            resultType="com.bs.mstp.mstp01.bean.Goods">
+        select id, name from goods
+    </select>
+
+
+    <select id="query"
+            resultType="com.bs.mstp.mstp01.bean.Goods">
+        select * from goods
+        <where>
+            <if test="barcode != null">
+                barcode like concat('%',#{barcode},'%')</if>
+            <if test="name != null">
+                AND name like concat('%',#{name},'%')</if>
+            <if test="norm != null">
+                AND norm like concat('%',#{norm},'%')</if>
+            <if test="unit != null">
+                AND unit like concat('%',#{unit},'%')</if>
+            <if test="num != null">
+                AND num like concat('%',#{num},'%')</if>
+            <if test="boxnorm != null">
+                AND boxnorm like concat('%',#{boxnorm},'%')</if>
+            <if test="brithtime != null">
+                AND brithtime like concat('%',#{brithtime},'%')</if>
+        </where>
+    </select>
+
+
+    <insert id="insert">
+        insert into goods values (
+        null, #{barcode}, #{name}, #{norm}, #{unit},  #{boxnorm},#{num}, #{brithtime}, #{ontime}
+        )
+    </insert>
+
+    <update id="update">
+        update goods
+        <set>
+            <if test="barcode != null">
+                barcode = #{barcode},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="norm != null">
+                norm = #{norm},
+            </if>
+            <if test="unit != null">
+                unit = #{unit},
+            </if>
+            <if test="num != null">
+                num = #{num},
+            </if>
+            <if test="boxnorm != null">
+                boxnorm = #{boxnorm},
+            </if>
+            <if test="brithtime != null">
+                brithtime = #{brithtime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from goods where id = #{id}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    private Long id;
+    private String name;
+    private String director;
+    private String address;
+    private String tel;
+    private Date foundtime;
+-->
+<mapper namespace="com.bs.mstp.mstp01.dao.extend.DepartmentExtendMapper">
+    <select id="findAll"
+            resultMap="DepartmentExtendResultMap">
+        select
+            s.id as s_def_id,
+            d.id as d_id,
+            s.name as s_name,
+            d.name as d_name,
+            d.director as d_director,
+            d.tel as d_tel,
+            d.foundtime as d_foundtime,
+            d.address as d_address,
+            s.address as s_address,
+            s.duty as s_duty,
+            s.grade as s_grade,
+            s.age as s_age,
+            s.sex as s_sex,
+            s.detail as s_detail
+        from department d, staff s
+        where s.def_id = d.id
+    </select>
+    <resultMap id="DepartmentExtendResultMap"
+               type="com.bs.mstp.mstp01.bean.extend.DepartmentExtend">
+        <id column="d_id" property="id"/>
+        <result column="d_name" property="name"/>
+        <result column="d_director" property="director"/>
+        <result column="d_address" property="address"/>
+        <result column="d_tel" property="tel"/>
+        <result column="d_foundtime" property="foundtime"/>
+        <association property="staff"
+                     javaType="com.bs.mstp.mstp01.bean.Staff">
+            <id column="s_def_id" property="id"/>
+            <result column="s_name" property="name"/>
+            <result column="s_duty" property="duty"/>
+            <result column="s_grade" property="grade"/>
+            <result column="s_age" property="age"/>
+            <result column="s_sex" property="sex"/>
+            <result column="s_detail" property="detail"/>
+            <result column="s_address" property="address"/>
+        </association>
+    </resultMap>
+    
+    
+    
+    
+    
+    
+    
+<!--    <select id="findById"-->
+<!--            resultType="com.bs.mstp.mstp01.bean.Department">-->
+<!--        select * from department where id =#{id}-->
+<!--    </select>-->
+<!--    <select id="query"-->
+<!--            resultType="com.bs.mstp.mstp01.bean.Department">-->
+<!--        select * from department-->
+<!--        <where>-->
+<!--            <if test="name != null">-->
+<!--                name like concat('%',#{name},'%')</if>-->
+<!--            <if test="director != null">-->
+<!--                AND director like concat('%',#{director},'%')</if>-->
+<!--            <if test="address != null">-->
+<!--                AND address like concat('%',#{address},'%')</if>-->
+<!--            <if test="tel != null">-->
+<!--                AND tel like concat('%',#{tel},'%')</if>-->
+<!--            <if test="foundtime != null">-->
+<!--                AND foundtime like concat('%',#{foundtime},'%')</if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+<!--    <insert id="insert">-->
+<!--        insert into department values (-->
+<!--        null, #{name}, #{director}, #{address}, #{tel}, #{foundtime}-->
+<!--        )-->
+<!--    </insert>-->
+<!--    <update id="update">-->
+<!--        update department-->
+<!--        <set>-->
+<!--            <if test="name != null">-->
+<!--                name = #{name},-->
+<!--            </if>-->
+<!--            <if test="director != null">-->
+<!--                sort = #{director},-->
+<!--            </if>-->
+<!--            <if test="address != null">-->
+<!--                detail = #{address},-->
+<!--            </if>-->
+<!--            <if test="tel != null">-->
+<!--                detail = #{tel},-->
+<!--            </if>-->
+<!--            <if test="foundtime != null">-->
+<!--                detail = #{foundtime},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where id = #{id}-->
+<!--    </update>-->
+
+<!--    <delete id="deleteById">-->
+<!--        delete from department where id = #{id}-->
+<!--    </delete>-->
+
+
+</mapper>

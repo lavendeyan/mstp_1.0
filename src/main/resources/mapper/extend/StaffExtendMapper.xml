@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    dep:
+        private Long id;
+        private String name;
+        private String director;
+        private String address;
+        private String tel;
+        private Date foundtime;
+    staff:
+        private Long id;
+        private String name;
+        private Long def_id;
+        private String duty;
+        private String grade;
+        private String age;
+        private String sex;
+        private String detail;
+        private String address;
+        -->
+<mapper namespace="com.bs.mstp.mstp01.dao.extend.StaffExtendMapper">
+    <select id="findAll"
+            resultMap="StaffExtendResultMap">
+        select
+            s.id as s_id,
+            s.name as s_name,
+            d.name as d_name,
+            s.duty as s_duty,
+            s.grade as s_grade,
+            s.age as s_age,
+            s.sex as s_sex,
+            s.detail as s_detail,
+            s.address as s_address
+        from staff s, department d
+        where s.def_id = d.id
+    </select>
+    <resultMap id="StaffExtendResultMap"
+               type="com.bs.mstp.mstp01.bean.extend.StaffExtend">
+        <id column="s_id" property="id"/>
+        <result column="s_def_id" property="def_id"/>
+        <result column="s_name" property="name"/>
+        <result column="s_duty" property="duty"/>
+        <result column="s_grade" property="grade"/>
+        <result column="s_age" property="age"/>
+        <result column="s_sex" property="sex"/>
+        <result column="s_detail" property="detail"/>
+        <result column="s_address" property="address"/>
+
+        <association property="department"
+                     javaType="com.bs.mstp.mstp01.bean.Department">
+            <id column="d_id" property="id"/>
+            <result column="d_name" property="name"/>
+            <result column="d_director" property="director"/>
+            <result column="d_address" property="address"/>
+            <result column="d_tel" property="tel"/>
+            <result column="d_foundtime" property="foundtime"/>
+
+        </association>
+    </resultMap>
+</mapper>

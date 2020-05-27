@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    private Long id;
+    private String name;
+    private Long def_id;
+    private String duty;
+    private String grade;
+    private String age;
+    private String sex;
+    private String detail;
+    private String address;
+-->
+<mapper namespace="com.bs.mstp.mstp01.dao.StaffMapper">
+    <select id="findAll"
+            resultType="com.bs.mstp.mstp01.bean.Staff">
+        select * from staff
+    </select>
+    <select id="findById"
+            resultType="com.bs.mstp.mstp01.bean.Staff">
+        select * from staff where id =#{id}
+    </select>
+    <select id="query"
+            resultType="com.bs.mstp.mstp01.bean.Staff">
+        select * from staff
+        <where>
+            <if test="name != null">
+                name like concat('%',#{name},'%')</if>
+            <if test="def_id != null">
+                AND def_id like concat('%',#{def_id},'%')</if>
+            <if test="duty != null">
+                AND duty like concat('%',#{duty},'%')</if>
+            <if test="grade != null">
+                AND grade like concat('%',#{grade},'%')</if>
+            <if test="age != null">
+                AND age like concat('%',#{age},'%')</if>
+            <if test="sex != null">
+                AND sex like concat('%',#{sex},'%')</if>
+            <if test="detail != null">
+                AND detail like concat('%',#{detail},'%')</if>
+            <if test="address != null">
+                AND address like concat('%',#{address},'%')</if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        insert into staff values (
+        null, #{name}, #{def_id}, #{duty}, #{grade},
+        #{age}, #{sex}, #{detail}, #{address}
+        )
+    </insert>
+    <update id="update">
+        update staff
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="def_id != null">
+                def_id = #{def_id},
+            </if>
+            <if test="duty != null">
+                duty = #{duty},
+            </if>
+            <if test="grade != null">
+                grade = #{grade},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="detail != null">
+                detail = #{detail},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from staff where id = #{id}
+    </delete>
+
+
+</mapper>

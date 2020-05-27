@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    clean:
+        private Long id;
+        private Long goods_id;
+        private Long detail;
+        private Long cleantime;
+    goods:
+        private Long id;
+        private String barcode;
+        private String name;
+        private String norm;
+        private String unit;
+        private String num;
+        private String boxnorm;
+        private String brithtime;
+        -->
+<mapper namespace="com.bs.mstp.mstp01.dao.extend.CleanExtendMapper">
+    <select id="findAll"
+            resultMap="CleanExtendResultMap">
+        select
+            c.id as c_id,
+            c.goods_id as c_goods_id,
+            g.name as g_name,
+            c.detail as c_detail,
+            c.cleantime as c_cleantime
+        from clean c, goods g
+        where c.goods_id = g.id
+    </select>
+    <resultMap id="CleanExtendResultMap"
+               type="com.bs.mstp.mstp01.bean.extend.CleanExtend">
+        <id column="c_id" property="id"/>
+        <result column="c_goods_id" property="goods_id"/>
+        <result column="c_detail" property="detail"/>
+        <result column="c_cleantime" property="cleantime"/>
+        <association property="goods"
+                     javaType="com.bs.mstp.mstp01.bean.Goods">
+            <id column="g_id" property="id"/>
+            <result column="g_barcode" property="barcode"/>
+            <result column="g_name" property="name"/>
+            <result column="g_norm" property="norm"/>
+            <result column="g_unit" property="unit"/>
+            <result column="g_num" property="num"/>
+            <result column="g_boxnorm" property="boxnorm"/>
+            <result column="g_brithtime" property="brithtime"/>
+        </association>
+    </resultMap>
+</mapper>

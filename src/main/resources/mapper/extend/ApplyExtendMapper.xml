@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    apply:
+        private Long id;
+        private Long goods_id;
+        private String statu;
+        private String num;
+        private String applytime;
+    goods:
+        private Long id;
+        private String barcode;
+        private String name;
+        private String norm;
+        private String unit;
+        private String num;
+        private String boxnorm;
+        private String brithtime;
+        -->
+<mapper namespace="com.bs.mstp.mstp01.dao.extend.ApplyExtendMapper">
+    <select id="findAll"
+            resultMap="ApplyExtendResultMap">
+        select
+            a.id as a_id,
+            a.goods_id as a_goods_id,
+            g.name as g_name,
+            a.statu as a_statu,
+            a.num as a_num,
+            a.applytime as a_applytime
+        from apply a, goods g
+        where a.goods_id = g.id
+    </select>
+    <resultMap id="ApplyExtendResultMap"
+               type="com.bs.mstp.mstp01.bean.extend.ApplyExtend">
+        <id column="a_id" property="id"/>
+        <result column="a_goods_id" property="goods_id"/>
+        <result column="a_statu" property="statu"/>
+        <result column="a_num" property="num"/>
+        <result column="a_applytime" property="applytime"/>
+        <association property="goods"
+                     javaType="com.bs.mstp.mstp01.bean.Goods">
+            <id column="g_id" property="id"/>
+            <result column="g_barcode" property="barcode"/>
+            <result column="g_name" property="name"/>
+            <result column="g_norm" property="norm"/>
+            <result column="g_unit" property="unit"/>
+            <result column="g_num" property="num"/>
+            <result column="g_boxnorm" property="boxnorm"/>
+            <result column="g_brithtime" property="brithtime"/>
+        </association>
+    </resultMap>
+</mapper>
